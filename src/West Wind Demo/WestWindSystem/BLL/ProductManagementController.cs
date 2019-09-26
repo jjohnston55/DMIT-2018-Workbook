@@ -68,6 +68,30 @@ namespace WestWindSystem.BLL
         #endregion
 
         [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Supplier> ListSupplierProducts()
+        {
+            using (var context = new WestWindContext())
+            {
+                var results = from company in context.Suppliers
+                              select new SupplierSummary
+                              {
+                                  CompanyName = company.CompanyName,
+                                  ContactName = company.ContactName,
+                                  Phone = company.Phone,
+                                  ProductSummary = from item in context.Products
+                                                   select new ProductSummary
+                                                   {
+                                                       ProductName = item.ProductName,
+                                                       CategoryID = item.Category.CategoryName,
+                                                       UnitPrice = item.UnitPrice,
+                                                       QuantityPerUnit = item.QuantityPerUnit
+                                                   }
+                              };
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<ProductInfo> FilterProducts(string partialName, bool includeDiscontinued)
         {
             using (var context = new WestWindContext())
