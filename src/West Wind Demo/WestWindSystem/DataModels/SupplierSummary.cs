@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WestWindSystem.DataModels
 {
-    class SupplierSummary
+    public class SupplierSummary
     {
+        public string CompanyName { get; set; }
+        public string ContactName { get; set; }
+        public string Phone { get; set; }
+        public IEnumerable<SupplierProduct> ProductSummary { get; set; }
     }
 }
