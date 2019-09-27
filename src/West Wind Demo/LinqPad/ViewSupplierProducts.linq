@@ -12,7 +12,7 @@ select new
 	CompanyName = company.CompanyName,
 	Contact = company.ContactName,
 	PhoneNumber = company.Phone,
-	ProductSummary = from item in Products
+	ProductSummary = from item in company.Products
 					 select new
 					 {
 					 	ProductName = item.ProductName,

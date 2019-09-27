@@ -36,7 +36,9 @@
                 </ItemTemplate>
             </asp:Repeater>
 
-            <asp:ObjectDataSource ID="CategoryDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListCurrentProducts" TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="CategoryDataSource" runat="server"
+                OldValuesParameterFormatString="original_{0}" SelectMethod="ListCurrentProducts"
+                TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
         </div>
     </div>
 </asp:Content>

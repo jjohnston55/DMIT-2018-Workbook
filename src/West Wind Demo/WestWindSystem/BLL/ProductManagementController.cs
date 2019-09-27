@@ -53,7 +53,7 @@ namespace WestWindSystem.BLL
                                   CompanyName = company.CompanyName,
                                   ContactName = company.ContactName,
                                   Phone = company.Phone,
-                                  ProductSummary = from item in context.Products
+                                  ProductSummary = from item in company.Products
                                                    select new SupplierProduct
                                                    {
                                                        ProductName = item.ProductName,
