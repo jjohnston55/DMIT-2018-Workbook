@@ -51,6 +51,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/Admin/ViewAddresses.aspx">Addresses</a></li>
                         <li><a runat="server" href="~/Admin/ViewCategories.aspx">Categories</a></li>
                         <li><a runat="server" href="~/Admin/ViewSuppliers.aspx">Suppliers</a></li>
                         <li><a runat="server" href="~/Admin/ViewProducts.aspx">Products</a></li>
