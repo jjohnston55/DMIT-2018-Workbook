@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\CRUDController.cs" />
+    <Compile Include="BLL\SupplierManager.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\BuildVersion.cs" />
     <Compile Include="Entities\Category.cs" />
@@ -69,6 +70,8 @@
     <Compile Include="Entities\Territory.cs" />
     <Compile Include="DAL\WestWindContext.cs" />
     <Compile Include="EntityCustomization\Address.cs" />
+    <Compile Include="EntityCustomization\SupplierProduct.cs" />
+    <Compile Include="EntityCustomization\SupplierSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
