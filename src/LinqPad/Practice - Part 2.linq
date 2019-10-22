@@ -1,7 +1,6 @@
 <Query Kind="Expression">
   <Connection>
     <ID>b3d3e348-43e3-4e4a-a0d2-e030fba0ffb2</ID>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
   </Connection>
@@ -24,7 +23,7 @@
  */
  
 from data in Regions
-group data by data.Address.Region into RegionGroups
+group data by data.RegionDescription into RegionGroups
 select new {
 	Region = RegionGroups.Key,
 	Employees = from item in RegionGroups				
@@ -68,7 +67,7 @@ select new {
 }
 // F) List all the Suppliers, by Country
 from data in Suppliers
-group data by data.Address.Country into SuppGroups
+group data by data.Country into SuppGroups
 select new {
 	Country = SuppGroups.Key,
 	Supplier = from supp in SuppGroups
@@ -76,9 +75,3 @@ select new {
 					Supplier = supp.CompanyName
 					}
 }
-
-
-
-
-
-
