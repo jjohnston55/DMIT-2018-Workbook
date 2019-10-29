@@ -27,23 +27,64 @@ The information shown here will be displayed in a **ListView**, using the *EditI
   - Use a custom command name of "ShipOrder" and handle in the ListViews's `ItemCommand` event.
   - Gather information from the form of the products to be shipped and the shipping information. This is sent to the following method in the BLL for processing:
     ```csharp
-    void OrderProcessingController.ShipOrder(int orderId, ShippingDirections shipping, List<OrderItem> items)
+    void OrderProcessingController.ShipOrder(int orderId, ShippingDirections shipping, List<ShippedItem> items)
     ```
 
-## POCOs
+## POCOs/DTOs
+
+The POCOs/DTOs are simply classes that will old our data when we are performing Queries or issuing Commands to the BLL.
 
 ### Commands
+
+```csharp
+public class ShippingDirections
+{
+    public int ShipperId { get; set; }
+    public string TrackingCode { get; set; }
+    public decimal? FreightCharge { get; set; }
+}
+```
+
+```csharp
+public class ShippedItem
+{
+    public int ProductId { get; set; }
+    public int ShipQuantity { get; set; }
+}
+```
 
 ### Queries
 
 ```csharp
+public class ShipperSelection
+{
+    public int ShipperId { get; set; }
+    public string Shipper { get; set; }
+}
+```
+
+```csharp
+public class OutstandingOrder
+{
+    public int OrderId { get; set; }
+    public string ShipToName { get; set; }
+    public DateTime OrderDate { get; set; }
+    public DateTime RequiredBy { get; set; }
+    public int DaysRemaining { get; } // Calculated
+    public IEnumerable<OrderItem> OustandingItems { get; set; }
+    public string FullShippingAddress { get; set; }
+    public string Comments { get; set; }
+}
+```
+
+```csharp
 public class OrderItem
 {
-    public int ProductID {get;set;}
-    public string ProductName {get;set;}
-    public short Qty {get;set;}
-    public string QtyPerUnit {get;set;}
-    public short Outstanding {get;set;} // Calculated as OD.Quantity - Sum(Shipped qty)
+    public int ProductID { get; set; }
+    public string ProductName { get; set; }
+    public short Qty { get; set; }
+    public string QtyPerUnit { get; set; }
+    public short Outstanding { get; set; } // Calculated as OD.Quantity - Sum(Shipped qty)
 }
 ```
 
