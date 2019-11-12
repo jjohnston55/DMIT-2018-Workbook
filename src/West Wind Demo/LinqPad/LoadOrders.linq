@@ -16,8 +16,7 @@ void Main()
 
 public List<OutstandingOrder> LoadOrders(int supplierId)
         {
-            // throw new NotImplementedException();
-			
+            // throw new NotImplementedException();			
 			var result =    from sale in Orders
 							where !sale.Shipped && sale.OrderDate.HasValue
 							select new OutstandingOrder
@@ -26,8 +25,26 @@ public List<OutstandingOrder> LoadOrders(int supplierId)
 								ShipToName = sale.ShipName,
 								OrderDate = sale.OrderDate.Value,
 								RequiredBy = sale.RequiredDate.Value,
-								// OustandingItems
-								// FullShippingAddress
+								OutstandingItems = from item in sale.OrderDetails
+												   where item.Product.SupplierID == supplierId
+												   select new OrderItem
+												   {
+												  		ProductID = item.ProductID,
+														ProductName = item.Product.ProductName,
+														Qty = item.Quantity,
+														QtyPerUnit = item.Product.QuantityPerUnit,
+														// TODO: Figure out the Outstanding quantity
+//														Outstanding =   (from ship in item.Order.Shipments
+//																		from shipItem in ship.ManifestItems
+//																		where shipItem.ProductID == item.ProductID
+//																		select shipItem.ShipQuantity).Sum()
+												   },
+								FullShippingAddress = // TODO: how to use sale.ShipAddressID,
+													  sale.Customer.Address.Address + Environment.NewLine +
+													  sale.Customer.Address.City + ", " +
+													  sale.Customer.Address.Region + Environment.NewLine +
+													  sale.Customer.Address.Country + " " +
+													  sale.Customer.Address.PostalCode,
 								Comments = sale.Comments
 							};
 			return result.ToList();
