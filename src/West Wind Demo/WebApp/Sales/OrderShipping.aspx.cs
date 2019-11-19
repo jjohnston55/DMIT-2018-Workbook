@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebApp.Admin.Security; // For the Settings class
+using WestWindSystem.BLL;
 using WestWindSystem.DataModels;
 
 namespace WebApp.Sales
@@ -28,7 +29,7 @@ namespace WebApp.Sales
         {
             if(e.CommandName == "Ship")
             {
-                // TODO: Gather information from the form to send to the BLL for shipping
+                // Gather information from the form to send to the BLL for shipping
                 //  - ShipOrder(int orderId, ShippingDirections shipping, List<ShippedItem> items)
                 int orderId = 0;
                 Label orderIdLabel = e.Item.FindControl("OrderIdLabel") as Label; // safe cast the Control object to a Label object
@@ -45,8 +46,33 @@ namespace WebApp.Sales
                     shipInfo.TrackingCode = trackingCode.Text;
 
                 TextBox freightCharge = e.Item.FindControl("FreightCharge") as TextBox;
-                if (freightCharge != null)
-                    shipInfo.FreightCharge = decimal.Parse(freightCharge.Text);
+                if (freightCharge != null && decimal.TryParse(freightCharge.Text, out decimal price))
+                    shipInfo.FreightCharge = price;
+
+                List<ShippedItem> goods = new List<ShippedItem>();
+                GridView gv = e.Item.FindControl("ProductsGridView") as GridView;
+                if (gv != null)
+                {
+                    foreach(GridViewRow row in gv.Rows)
+                    {
+                        // get productId and shipQty
+                        HiddenField prodId = row.FindControl("ProductId") as HiddenField;
+                        TextBox qty = row.FindControl("ShipQuantity") as TextBox;
+
+                        if(prodId != null && qty != null && short.TryParse(qty.Text, out short quantity))
+                        {
+                            ShippedItem item = new ShippedItem
+                            {
+                                Product = prodId.Value,
+                                Quantity = quantity
+                            };
+                            goods.Add(item);
+                        }
+                    }
+                }
+
+                var controller = new OrderProcessingController();
+                controller.ShipOrder(orderId, shipInfo, goods);
             }
         }
     }
