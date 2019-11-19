@@ -43,30 +43,6 @@ namespace WestWindSystem.BLL
         #region Product Info CRUD Processing
         #region Supplier/Category Supporting Lists
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<SupplierSummary> ListSupplierProducts()
-        {
-            using (var context = new WestWindContext())
-            {
-                var results = from company in context.Suppliers
-                              select new SupplierSummary
-                              {
-                                  CompanyName = company.CompanyName,
-                                  ContactName = company.ContactName,
-                                  Phone = company.Phone,
-                                  ProductSummary = from item in company.Products
-                                                   select new SupplierProduct
-                                                   {
-                                                       ProductName = item.ProductName,
-                                                       CategoryName = item.Category.CategoryName,
-                                                       UnitPrice = item.UnitPrice,
-                                                       QuantityPerUnit = item.QuantityPerUnit
-                                                   }
-                              };
-                return results.ToList();
-            }
-        }
-
-        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<KeyValuePair<int, string>> ListSuppliersNameAndId()
         {
             using (var context = new WestWindContext())

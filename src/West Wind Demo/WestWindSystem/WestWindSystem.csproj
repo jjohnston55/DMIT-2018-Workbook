@@ -68,8 +68,6 @@
     <Compile Include="DataModels\SetupUserInfo.cs" />
     <Compile Include="DataModels\ShipperSelection.cs" />
     <Compile Include="DataModels\ShippingDirections.cs" />
-    <Compile Include="DataModels\SupplierProduct.cs" />
-    <Compile Include="DataModels\SupplierSummary.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\BuildVersion.cs" />
     <Compile Include="Entities\Category.cs" />
