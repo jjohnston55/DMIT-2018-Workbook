@@ -12,7 +12,7 @@
                 <asp:Literal ID="SupplierInfo" runat="server" />
             </p>
 
-            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
+            <uc1:MessageUserControl runat="server" id="MessageUserControl" />
 
             <asp:ListView ID="CurrentOrders" runat="server"
                 DataSourceID="SupplierOrdersDataSource"
@@ -21,14 +21,15 @@
                 <EditItemTemplate>
                     <tr style="">
                         <td>
-                            (<asp:Label Text="<%# Item.OrderId %>" runat="server" ID="OrderIdLabel" />)
+                            (<asp:Label Text='<%# Item.OrderId %>' runat="server" ID="OrderIdLabel" />)
                             <%# Item.ShipToName %>
                         </td>
                         <td>
                             <%# Item.OrderDate.ToString("MMM dd, yyyy") %>
                         </td>
                         <td>
-                            <%# Item.RequiredBy.ToString("MMM dd, yyyy") %> - in <%# Item.DaysRemaining %> days
+                            <%# Item.RequiredBy.ToString("MMM dd, yyyy") %>
+                            - in <%# Item.DaysRemaining %> days
                         </td>
                         <td>
                             <asp:LinkButton ID="EditOrder" runat="server"
@@ -45,7 +46,7 @@
                                 DataSourceID="ShippersDataSource"
                                 DataTextField="Shipper" DataValueField="ShipperId"
                                 AppendDataBoundItems="true">
-                                <asp:ListItem Value="-1">[Select a Shipper]</asp:ListItem>
+                                <asp:ListItem Value="0">[Select a Shipper]</asp:ListItem>
                             </asp:DropDownList>
                             <asp:GridView ID="ProductsGridView" runat="server"
                                 CssClass="table table-hover table-condensed"
@@ -53,14 +54,14 @@
                                 ItemType="WestWindSystem.DataModels.OrderItem"
                                 AutoGenerateColumns="false"
                                 DataKeyNames="ProductID">
-                                <Columns>                                    
+                                <Columns>
                                     <asp:BoundField DataField="ProductName" HeaderText="Product Name" />
                                     <asp:BoundField DataField="Qty" HeaderText="Qty" />
                                     <asp:BoundField DataField="QtyPerUnit" HeaderText="Qty per Unit" />
                                     <asp:BoundField DataField="Outstanding" HeaderText="Outstanding" />
                                     <asp:TemplateField HeaderText="Ship Quantity">
                                         <ItemTemplate>
-                                            <asp:HiddenField ID="ProductId" runat="server" value="<% Item.ProductID %>" />
+                                            <asp:HiddenField ID="ProductId" runat="server" Value="<%# Item.ProductID %>" />
                                             <asp:TextBox ID="ShipQuantity" runat="server"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -93,7 +94,8 @@
                             <%# Item.OrderDate.ToString("MMM dd, yyyy") %>
                         </td>
                         <td>
-                            <%# Item.RequiredBy.ToString("MMM dd, yyyy") %> - in <%# Item.DaysRemaining %> days
+                            <%# Item.RequiredBy.ToString("MMM dd, yyyy") %>
+                            - in <%# Item.DaysRemaining %> days
                         </td>
                         <td>
                             <asp:LinkButton ID="EditOrder" runat="server"
